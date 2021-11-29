@@ -1,11 +1,14 @@
-import { FileLoader, ImageBitmapLoader, TextureLoader } from 'three'
+import { Bone, FileLoader, Group, ImageBitmapLoader, Matrix4, Object3D, TextureLoader } from 'three'
 
 import { addUnknownExtensionsToUserData } from './addUnknownExtensionsToUserData'
 import { assignExtrasToUserData } from './assignExtrasToUserData'
 import { createPrimitiveKey } from './createPrimitiveKey'
 import { getNormalizedComponentScale } from './getNormalizedComponentScale'
+import { GLTFCubicSplineInterpolant } from './GLTFCubicSplineInterpolant'
 import { GLTFRegistry } from './GLTFRegistry'
 import { resolveURL } from './resolveURL'
+
+type DependencyType = 'accessor' | 'animation' | 'buffer' | 'bufferView' | 'camera' | 'material' | 'mesh' | 'node' | 'scene' | 'skin' | 'texture'
 
 export class GLTFParser {
   constructor(json = {}, options = {}) {
@@ -211,11 +214,11 @@ export class GLTFParser {
 
   /**
    * Requests the specified dependency asynchronously, with caching.
-   * @param {string} type
+   * @param {string} DependencyType
    * @param {number} index
    * @return {Promise<Object3D|Material|THREE.Texture|AnimationClip|ArrayBuffer|Object>}
    */
-  getDependency(type, index) {
+  getDependency(type: DependencyType, index: number) {
     const cacheKey = type + ':' + index
     let dependency = this.cache.get(cacheKey)
 
@@ -354,7 +357,7 @@ export class GLTFParser {
    * @param {number} accessorIndex
    * @return {Promise<BufferAttribute|InterleavedBufferAttribute>}
    */
-  loadAccessor(accessorIndex) {
+  loadAccessor(accessorIndex: number) {
     const parser = this
     const json = this.json
 
@@ -1261,7 +1264,7 @@ export class GLTFParser {
    * @param {number} nodeIndex
    * @return {Promise<Object3D>}
    */
-  loadNode(nodeIndex) {
+  loadNode(nodeIndex: number) {
     const json = this.json
     const extensions = this.extensions
     const parser = this
@@ -1357,7 +1360,7 @@ export class GLTFParser {
    * @param {number} sceneIndex
    * @return {Promise<Group>}
    */
-  loadScene(sceneIndex) {
+  loadScene(sceneIndex: number) {
     const json = this.json
     const extensions = this.extensions
     const sceneDef = this.json.scenes[sceneIndex]

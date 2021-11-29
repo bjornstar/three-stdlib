@@ -1,12 +1,15 @@
 import { LoaderUtils } from 'three'
+import { GLTFExtension } from './GLTFExtension'
 
 const BINARY_EXTENSION_HEADER_MAGIC = 'glTF'
 const BINARY_EXTENSION_HEADER_LENGTH = 12
 const BINARY_EXTENSION_CHUNK_TYPES = { JSON: 0x4e4f534a, BIN: 0x004e4942 }
 
-export class GLTFBinaryExtension {
+export class GLTFBinaryExtension extends GLTFExtension {
+  readonly name!: 'KHR_binary_glTF'
+
   constructor(data) {
-    this.name = EXTENSIONS.KHR_BINARY_GLTF
+    super('KHR_binary_glTF')
     this.content = null
     this.body = null
 

@@ -46,16 +46,18 @@ const decoders = {
 
 type DecoderMode = keyof typeof decoders
 
-let generated: {
-  decodeGltfBuffer: (target: Uint8Array, count: number, size: number, source: Uint8Array, mode: DecoderMode, filter: FilterKey) => void
-  decodeIndexBuffer: (target: Uint8Array, count: number, size: number, source: Uint8Array) => void
-  decodeIndexSequence: (target: Uint8Array, count: number, size: number, source: Uint8Array) => void
+export type MeshoptDecoder = {
+  decodeGltfBuffer?: (target: Uint8Array, count: number, size: number, source: Uint8Array, mode: DecoderMode, filter: FilterKey) => void
+  decodeIndexBuffer?: (target: Uint8Array, count: number, size: number, source: Uint8Array) => void
+  decodeIndexSequence?: (target: Uint8Array, count: number, size: number, source: Uint8Array) => void
   decodeVertexBuffer?: (target: Uint8Array, count: number, size: number, source: Uint8Array, filter: FilterKey) => void
   ready?: Promise<void>
   supported: boolean
 }
 
-export const MeshoptDecoder = () => {
+let generated: MeshoptDecoder
+
+export const meshoptDecoder: () => MeshoptDecoder = () => {
   if (generated) return generated
 
   // Built with clang version 11.0.0 (https://github.com/llvm/llvm-project.git 0160ad802e899c2922bc9b29564080c22eb0908c)

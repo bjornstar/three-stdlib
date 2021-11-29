@@ -1,3 +1,19 @@
+export * from './GLTFBinaryExtension'
+export * from './GLTFDracoMeshCompressionExtension'
+export * from './GLTFLightsExtension'
+export * from './GLTFMaterialsClearcoatExtension'
+export * from './GLTFMaterialsIorExtension'
+export * from './GLTFMaterialsPbrSpecularGlossinessExtension'
+export * from './GLTFMaterialsSpecularExtension'
+export * from './GLTFMaterialsTransmissionExtension'
+export * from './GLTFMaterialsUnlitExtension'
+export * from './GLTFMaterialsVolumeExtension'
+export * from './GLTFMeshoptCompression'
+export * from './GLTFMeshQuantizationExtension'
+export * from './GLTFTextureBasisUExtension'
+export * from './GLTFTextureTransformExtension'
+export * from './GLTFTextureWebPExtension'
+
 export const EXTENSIONS = {
   KHR_BINARY_GLTF: 'KHR_binary_glTF',
   KHR_DRACO_MESH_COMPRESSION: 'KHR_draco_mesh_compression',

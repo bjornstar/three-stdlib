@@ -1,6 +1,6 @@
 import { Color, TangentSpaceNormalMap } from 'three'
 
-import { GLTFMeshStandardSGMaterial } from './GLTFMeshStandardSGMaterial'
+import { GLTFMeshStandardSGMaterial } from '../GLTFMeshStandardSGMaterial'
 
 export class GLTFMaterialsPbrSpecularGlossinessExtension {
   name: 'KHR_materials_pbrSpecularGlossiness'

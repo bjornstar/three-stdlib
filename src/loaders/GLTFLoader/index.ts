@@ -15,10 +15,26 @@ import {
   RepeatWrapping,
 } from 'three'
 
-import type { LoadingManager } from 'three'
-import type { GLTFParser } from './GLTFParser'
+import {
+  GLTFMaterialsClearcoatExtension,
+  GLTFTextureBasisUExtension,
+  GLTFTextureWebPExtension,
+  GLTFMaterialsTransmissionExtension,
+  GLTFMaterialsVolumeExtension,
+  GLTFMaterialsIorExtension,
+  GLTFMaterialsSpecularExtension,
+  GLTFLightsExtension,
+  GLTFMeshoptCompression,
+} from './extensions'
+import { GLTFParser } from './GLTFParser'
 
+import type { LoadingManager } from 'three'
+
+import type { MeshoptDecoder } from '../../libs/MeshoptDecoder'
+import type { GLTFParser } from './GLTFParser'
 export class GLTFLoader extends Loader {
+  meshoptDecoder: MeshoptDecoder | null
+
   constructor(manager: LoadingManager) {
     super(manager)
 
@@ -65,10 +81,10 @@ export class GLTFLoader extends Loader {
     })
   }
 
-  load(url, onLoad, onProgress, onError) {
+  load(url: string, onLoad, onProgress, onError: (e: unknown) => void) {
     const scope = this
 
-    let resourcePath
+    let resourcePath: string
 
     if (this.resourcePath !== '') {
       resourcePath = this.resourcePath
@@ -83,7 +99,7 @@ export class GLTFLoader extends Loader {
     // be incorrect, but ensures manager.onLoad() does not fire early.
     this.manager.itemStart(url)
 
-    const _onError = function (e) {
+    const _onError = function (e: unknown) {
       if (onError) {
         onError(e)
       } else {
@@ -138,7 +154,7 @@ export class GLTFLoader extends Loader {
     return this
   }
 
-  setMeshoptDecoder(meshoptDecoder) {
+  setMeshoptDecoder(meshoptDecoder: MeshoptDecoder) {
     this.meshoptDecoder = meshoptDecoder
     return this
   }
@@ -159,7 +175,7 @@ export class GLTFLoader extends Loader {
     return this
   }
 
-  parse(data, path, onLoad, onError) {
+  parse(data, path, onLoad, onError: (e: unknown) => void) {
     let content
     const extensions = {}
     const plugins = {}

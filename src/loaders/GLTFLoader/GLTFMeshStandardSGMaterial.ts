@@ -1,5 +1,7 @@
 import { Color, MeshStandardMaterial } from 'three'
 
+import type { MeshStandardMaterialParameters } from 'three'
+
 /**
  * Specular-Glossiness Extension
  *
@@ -13,9 +15,15 @@ import { Color, MeshStandardMaterial } from 'three'
  */
 
 export class GLTFMeshStandardSGMaterial extends MeshStandardMaterial {
+  glossiness!: number
   isGLTFSpecularGlossinessMaterial: boolean
+  metalness!: never
+  metalnessMap!: never
+  roughness!: never
+  roughnessMap!: never
+  specular!: Color
 
-  constructor(params) {
+  constructor(params: MeshStandardMaterialParameters) {
     super()
 
     this.isGLTFSpecularGlossinessMaterial = true
@@ -145,7 +153,7 @@ export class GLTFMeshStandardSGMaterial extends MeshStandardMaterial {
     this.setValues(params)
   }
 
-  copy(source) {
+  copy(source: GLTFMeshStandardSGMaterial) {
     super.copy(source)
 
     this.specularMap = source.specularMap

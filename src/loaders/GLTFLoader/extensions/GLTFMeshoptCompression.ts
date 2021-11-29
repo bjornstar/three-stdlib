@@ -1,16 +1,23 @@
+import { GLTFExtension } from "./GLTFExtension"
+import type { GLTFParser } from "../GLTFParser"
+
 /**
  * meshopt BufferView Compression Extension
  *
  * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/EXT_meshopt_compression
  */
 
-export class GLTFMeshoptCompression {
-  constructor(parser) {
-    this.name = EXTENSIONS.EXT_MESHOPT_COMPRESSION
+export class GLTFMeshoptCompression extends GLTFExtension {
+  readonly name!: 'EXT_meshopt_compression'
+  parser: GLTFParser
+
+  constructor(parser: GLTFParser) {
+    super('EXT_meshopt_compression')
+
     this.parser = parser
   }
 
-  loadBufferView(index) {
+  loadBufferView(index: number): Promise<ArrayBuffer> | null {
     const json = this.parser.json
     const bufferView = json.bufferViews[index]
 
